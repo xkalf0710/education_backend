@@ -6,17 +6,10 @@ import { ParseIdPipe } from './pipes/parseIdpipe';
 import { UpdatePropertyDto } from './dto/updateProperty.dto';
 
 
-
-
-
 @Controller('property')
 export class PropertyController { 
-
-    
     constructor(private propertyService: PropertyService){
-        
     }
-
 
     @Get()
     findAll(){

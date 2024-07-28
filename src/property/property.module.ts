@@ -5,6 +5,7 @@ import { PropertyService } from './property.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Property } from 'src/entities/property.entity';
 
+
 @Module({
   controllers: [PropertyController],
  imports: [TypeOrmModule.forFeature([Property])],
