@@ -1,6 +1,6 @@
 import { IsString, IsInt, Length, IsPositive } from "class-validator";
 
-export class CreatePropertyDto{
+export class CreateCourseDto{
     @IsString()
     @Length(2, 10, { message: 'error on length' })
     name: string;
@@ -14,4 +14,10 @@ export class CreatePropertyDto{
     
     @IsPositive()
     price: number;
+
+
+    @IsString()
+    @Length(2, 10, { message: 'error on length' })
+    is_progress_limit: string;
+
 }
