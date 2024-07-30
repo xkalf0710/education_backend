@@ -1,6 +1,6 @@
-import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Course } from "./course.entity";
-
+import * as  bcrypt from "bcrypt";
 @Entity()
 export class User{
     @PrimaryGeneratedColumn()
@@ -20,6 +20,9 @@ export class User{
 
     @CreateDateColumn()
     createAt: Date;
+
+    @Column()
+    password: string;
     
     @OneToMany(()=> Course, (course) => course.user)
     courses: Course[];
@@ -29,6 +32,12 @@ export class User{
     @ManyToMany(() => Course, (course) => course.likedBy)
     @JoinTable({ name: "user_liked_courses"})
     
-    likedCourses: Course[]
+    likedCourses: Course[];
+
+
+    @BeforeInsert()
+    async hashPassword(){
+        this.password = await bcrypt.hash(this.password,10)
+    }
 
 }

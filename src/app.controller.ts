@@ -1,14 +1,15 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
+import { ConfigService } from '@nestjs/config';
 
 @Controller({
-  path: "user"
+  path: ""
 })
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService, private configService: ConfigService) {}
 
   @Get('all')
   getHello(): string {
-    return this.appService.getHello();
+    return this.configService.get('dbconfig.env.type');
   }
 }

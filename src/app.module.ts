@@ -4,18 +4,21 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm'; 
 import { ConfigModule} from '@nestjs/config';
 import { CourseModule } from './course/course.module';
+import { UserModule } from './user/user.module';
 import dbConfig from './config/db.config';
+import dbConfigProduction from './config/db.config.production';
 
 @Module({
   imports: [ ConfigModule.forRoot({
     isGlobal: true,
     expandVariables: true,
-    load: [dbConfig]
+    load: [dbConfig, dbConfigProduction]
   }),
     TypeOrmModule.forRootAsync({
-      useFactory: dbConfig,
+      useFactory: process.env.NODE_ENV === "production" ? dbConfigProduction: dbConfig,
     }),
-    CourseModule],
+    CourseModule,
+    UserModule],
   controllers: [AppController],
   providers: [AppService],
 })
