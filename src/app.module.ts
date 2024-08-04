@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule} from '@nestjs/config';
 import { CourseModule } from './course/course.module';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 import dbConfig from './config/db.config';
 import dbConfigProduction from './config/db.config.production';
 
@@ -18,7 +19,8 @@ import dbConfigProduction from './config/db.config.production';
       useFactory: process.env.NODE_ENV === "production" ? dbConfigProduction: dbConfig,
     }),
     CourseModule,
-    UserModule],
+    UserModule,
+    AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })
